@@ -1,6 +1,5 @@
 # TOR NODE LOAD BALANCER
-This is a simple tor client load balncer using HAproxy
-
+This is a simple tor client load balancer using HAproxy
 
 
 ## how use?
