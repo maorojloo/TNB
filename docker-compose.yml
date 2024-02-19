@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  tor_client_1:
+    image: andreas4all/tor-client:latest
+    ports:
+      - "9951:9051"
+    environment:
+      - PASSWORD=12345678
+    networks:
+      - internal_network
+  tor_client_2:
+    image: andreas4all/tor-client:latest
+    ports:
+      - "9952:9051"
+    environment:
+      - PASSWORD=12345678
+    networks:
+      - internal_network
+  tor_client_3:
+    image: andreas4all/tor-client:latest
+    ports:
+      - "9953:9051"
+    environment:
+      - PASSWORD=12345678
+    networks:
+      - internal_network
+
+  haproxy:
+    image: haproxy:latest
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    ports:
+      - "9050:9050"
+    depends_on:
+      - tor_client_1
+      - tor_client_2
+      - tor_client_3
+    networks:
+      - internal_network
+
+networks:
+  internal_network:
+    driver: bridge
